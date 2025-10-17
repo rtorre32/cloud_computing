@@ -5,10 +5,7 @@ import time
 import operator
 import glob
 
-#from multiprocessing import Process
 from multiprocessing import Pool
-from collections import defaultdict
-import sys
 
 class SimpleMapReduce(object):
     def __init__(self, map_func, reduce_func):
@@ -48,9 +45,6 @@ class SimpleMapReduce(object):
         partitioned_data = self.partition(itertools.chain(*map_responses))
         
         with Pool(processes = 2) as pool:
-            #map_responses = pool.map(self.map_func, inputs)
-            #partitioned_data1 = pool.map(self.partition, map_responses)
-            #partitioned_data = defaultdict(partitioned_data)
             reduced_values = map(self.reduce_func, partitioned_data)
         #reduced_values = map(self.reduce_func, partitioned_data)
         return reduced_values
